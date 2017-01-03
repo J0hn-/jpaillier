@@ -29,17 +29,15 @@ class HomomorphicTest {
         assertEquals(decryptedProduct, plainSum)
     }
 
-    /*
     @Test
     fun testHomomorphicConstantMultiplication() {
         val plainA = BigInteger.valueOf(14)
         val plainB = BigInteger.valueOf(203)
 
-        val encryptedA = publicKey!!.encrypt(plainA)
+        val encryptedA = Pailler.encrypt(plainA, keys.first)
 
-        val decryptedPow = keypair!!.decrypt(encryptedA.modPow(plainB,
-                publicKey!!.getnSquared()))
-        val plainSum = plainA.multiply(plainB).mod(publicKey!!.getN())
+        val decryptedPow = Pailler.decrypt(encryptedA.modPow(plainB, keys.first*keys.first), keys.first, keys.second)
+        val plainSum = (plainA * plainB) % keys.first
 
         assertEquals(decryptedPow, plainSum)
     }
@@ -49,37 +47,19 @@ class HomomorphicTest {
         val plainA = BigInteger.valueOf(23)
         val plainB = BigInteger.valueOf(234)
 
-        val encryptedA = publicKey!!.encrypt(plainA)
-        val decryptedPowA = keypair!!.decrypt(encryptedA.modPow(
-                plainB, publicKey!!.getnSquared()))
-        val plainSumA = plainA.multiply(plainB).mod(publicKey!!.getN())
+        val encryptedA = Pailler.encrypt(plainA, keys.first)
+        val decryptedPowA = Pailler.decrypt(encryptedA.modPow(plainB, keys.first*keys.first), keys.first, keys.second)
+        val plainSumA = (plainA * plainB) % keys.first
 
         assertEquals(decryptedPowA, plainSumA)
 
-        val encryptedB = publicKey!!.encrypt(plainB)
-        val decryptedPowB = keypair!!.decrypt(encryptedB.modPow(
-                plainA, publicKey!!.getnSquared()))
-        val plainSumB = plainA.multiply(plainB).mod(publicKey!!.getN())
+        val encryptedB = Pailler.encrypt(plainB, keys.first)
+        val decryptedPowB = Pailler.decrypt(encryptedB.modPow(plainA, keys.first*keys.first), keys.first, keys.second)
+        val plainSumB = (plainA * plainB) % keys.first
 
         assertEquals(decryptedPowB, plainSumB)
 
         assertEquals(decryptedPowA, decryptedPowB)
     }
 
-    @Test
-    fun testHomomorphicMultiplicationPowG() {
-        val plainA = BigInteger.valueOf(230)
-        val plainB = BigInteger.valueOf(100)
-
-        val g = publicKey!!.getG()
-
-        val encryptedA = publicKey!!.encrypt(plainA)
-        val decryptedPow = keypair!!.decrypt(encryptedA.multiply(g.modPow(
-                plainB, publicKey!!.getnSquared()).mod(publicKey!!.getnSquared())))
-
-        val plainSumA = plainA.add(plainB).mod(publicKey!!.getN())
-
-        assertEquals(decryptedPow, plainSumA)
-    }
-    */
 }

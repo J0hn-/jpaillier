@@ -10,5 +10,4 @@ fun main(args: Array<String>) {
     println(cypher)
 
     println(Pailler.decrypt(c = cypher, n = keys.first, privateKey = keys.second))
-
 }
